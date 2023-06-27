@@ -40,13 +40,15 @@ namespace CL_CompteBancaire
         public int NumeroCompteCourant { get => numeroCompteCourant; private set => numeroCompteCourant = value; }
         public decimal DecouvertAutorise { get => montantDecouvertAutorise; private set => montantDecouvertAutorise = value; } */
 
-        public void  AfficherLesInformationsDuCompte()
+        public string AfficherLesInformationsDuCompte()
         {
-            Console.WriteLine("Le propriétaire du compte est {0}.", this.nomProprietaire);
-            Console.WriteLine("Le numéro du compte est {0}.", this.numeroCompteCourant);
-            Console.WriteLine("Le solde actuel du compte est {0}.", this.solde);
-            Console.WriteLine("Le Découvert maximal autorisé est {0}.", this.montantDecouvertAutorise);
-        } 
+            return "Nom du bénéficiaire : " + this.nomProprietaire + "\n" + "Numéro de compte : " + this.numeroCompteCourant.ToString() 
+                + "\n" + "Solde : " + this.solde.ToString() + "\n" + "Découvert maximal autorisé : " + this.montantDecouvertAutorise.ToString();
+        }
+        /*public override string ToString()
+        {
+            return this.AfficherLesInformationsDuCompte();
+        } */
 
         public void CrediterLeCompte(int montant)
         {
@@ -55,7 +57,7 @@ namespace CL_CompteBancaire
 
         public bool DebiterLeCompte(int montant)
         {
-            if(solde - montant > montantDecouvertAutorise)
+            if(solde - montant >= montantDecouvertAutorise)
             {
                 solde = solde - montant;
                 return true;
@@ -68,10 +70,10 @@ namespace CL_CompteBancaire
 
         public bool TransfererVersUnCompte(CompteBancaire autreCompte, int montant)
         {
-            if(this.solde - montant > montantDecouvertAutorise)
+            if(this.solde - montant >= montant)
             {
-                this.solde = solde - montant;
-                autreCompte.solde = autreCompte.solde + montant;
+                this.DebiterLeCompte(montant);
+                autreCompte.CrediterLeCompte(montant);
                 return true;
             }
             else
@@ -79,6 +81,7 @@ namespace CL_CompteBancaire
                 return false;
             }
         }
+        
         public bool SoldeSuperieur(CompteBancaire autreCompte)
         {
             if (this.solde > autreCompte.solde)
