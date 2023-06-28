@@ -27,7 +27,7 @@ namespace CL_Point
 
         // Copier un point existant afin de créer un point symétrique selon l'axe des abscisses (z = 'a'), des ordonnées(z = 'o')
         // ou l'origine (z = '0')
-        public Point(Point pointACopierAxeOrdonnees, char z)
+        /*public Point(Point pointACopierAxeOrdonnees, char z)
         {
             if (z == 'o')
             {
@@ -50,13 +50,29 @@ namespace CL_Point
             {
                 throw new Exception("Veuillez saisir 'a' pour abscisses , 'o' pour ordonnées ou '0' pour l'origine !");
             }
+        }*/
+
+        public Point CreerUnPointSymetriqueOrdonnee()
+        {
+            return new Point(this.x*-1, this.y);
         }
 
-        public void Permutation(Point point)
+        public Point CreerUnPointSymetriqueAbscisse()
         {
-            float buffer = point.x;
-            point.x = point.y;
-            point.y = buffer;
+            return new Point(this.x, this.y*-1);
+        }
+
+        public Point CrerUnPointSymetriqueOrigine()
+        {
+            return new Point(this.x * -1, this.y * -1);
+        }
+
+
+        public void Permutation()
+        {
+            float buffer = this.x;
+            this.x = this.y;
+            this.y = buffer;
         }
 
         public string AfficherCoordonnees()
