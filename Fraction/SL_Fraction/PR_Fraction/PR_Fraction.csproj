@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CL_Fraction\CL_Fraction.csproj" />
+  </ItemGroup>
+
 </Project>
